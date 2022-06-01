@@ -1,12 +1,12 @@
 prompt = {'Mouse:','Image Number:', 'Cropped? 1 = yes:'};
 default_input = {'PZ', '1', '1'};
-answer = inputdlg(prompt,'Analysis Properties',[1 50], default_input);
+answer = inputdlg(prompt,'Tissue Mask Properties',[1 50], default_input);
 
 mouse = answer{1};
 img_num = str2num(answer{2});
 cropped = answer{3};
 
-for i = 1:1:16
+for i = 16:1:16
     img_num = i;
 
     if cropped == '1'
