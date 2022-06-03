@@ -1,11 +1,11 @@
 prompt = {'Mouse:', 'Cropped? 1 = yes:'};
-default_input = {'PZ7', '1'};
+default_input = {'PZ25', '1'};
 answer = inputdlg(prompt,'Grid Properties',[1 50], default_input);
 
 mouse = answer{1};
 cropped = answer{2};
 
-for i = 14:1:16
+for i = 1:1:16
     img_num = i;
 
     height = 2100;

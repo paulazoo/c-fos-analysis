@@ -24,9 +24,9 @@ function cfos_cropgrid(mouse, img_num)
     % dont include rois less than 50 pixels in area
     cfos_thresh4 = bwareaopen(cfos_thresh3, 50);
     % cfos_thresh4_perim = bwperim(cfos_thresh4);
-    % overlay1 = imoverlay(adjusted_cfos, cfos_thresh4_perim, [1 0.1 .1]);
-    % figure
-    % imshow(overlay1)
+    overlay1 = imoverlay(adjusted_cfos, cfos_thresh4_perim, [1 0.1 .1]);
+    figure
+    imshow(overlay1)
     
     % watershed segmentation HERE
     
