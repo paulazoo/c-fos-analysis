@@ -1,14 +1,16 @@
-
+% d = delete, a = add, p = save, q = quit w/o saving
 subtract_tissuemask = 1;
+batch = 'paula_TH22';
+mouse = 'PZ5';
 
 if subtract_tissuemask == 1
     % load tissuemask mat file
-    [tissuemaskfile,tissuemaskpath] = uigetfile('.mat', 'Select tissuemask matlab file', 'E:\histology\paula');
+    [tissuemaskfile,tissuemaskpath] = uigetfile('*_tissuemask_cropped.mat', 'Select tissuemask matlab file', ['E:\histology\paula\' mouse '\cropped']);
     load([tissuemaskpath tissuemaskfile])
 end
 
 % load roi mask png file
-[maskfile,maskpath] = uigetfile('.png', 'Select mask png', 'E:\histology\paula\cellpose_data_copied\paula_TH22');
+[maskfile,maskpath] = uigetfile('.png', 'Select mask png', ['E:\histology\paula\cellpose_data_copied\' batch '\' mouse]);
 mask_png = imread([maskpath maskfile]);
 if subtract_tissuemask == 1
     mask_png(tissue_mask == 0) = 0;
@@ -19,7 +21,7 @@ roi_centroids = cat(1,rois.Centroid);
 mask_perim = bwperim(mask_png);
 
 % load base image tif file
-[imgfile,imgpath] = uigetfile('.tif', 'Select image tif', 'E:\histology\paula\cellpose_data_copied\paula_TH22');
+[imgfile,imgpath] = uigetfile('.tif', 'Select image tif', ['E:\histology\paula\cellpose_data_copied\' batch '\' mouse]);
 img_tif = imread([imgpath imgfile]);
 img_a = imadjust(img_tif);
 [M, N] = size(img_a);
