@@ -9,12 +9,13 @@ function imshow_cellpose(mouse, img_num, batch, cp_type)
         channel_num = 2;
         ln = 0;
     end
+    base_dir = 'E:\histology\paula\cellpose_data_copied\';
     
     % read in image
     if ln == 1
-        cp_img = imread(['F:\analysis\paula\cellpose_data\' batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped_ln_cp_masks.png']);
+        cp_img = imread([base_dir batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped_ln_cp_masks.png']);
     else
-        cp_img = imread(['F:\analysis\paula\cellpose_data\' batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped_cp_masks.png']);
+        cp_img = imread([base_dir batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped_cp_masks.png']);
     end
     cp_img_a = cp_img;
     cp_img_a(cp_img_a > 0) = 1;
@@ -22,9 +23,9 @@ function imshow_cellpose(mouse, img_num, batch, cp_type)
     
     % read in image
     if ln == 1
-        img = imread(['F:\analysis\paula\cellpose_data\' batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped_ln.tif']);
+        img = imread([base_dir batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped_ln.tif']);
     else
-        img = imread(['F:\analysis\paula\cellpose_data\' batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped.tif']);
+        img = imread([base_dir batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped.tif']);
     end
     img_a = imadjust(img);
     

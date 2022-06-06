@@ -1,10 +1,14 @@
 % d = delete, a = add, p = save, q = quit w/o saving
+% do first run through ignoring super bright groups
+% then second run through locate super bright groups and use local
+% normalized image as reference
+
 subtract_tissuemask = 1;
 batch = 'paula_TH22';
 channel_num = 1;
-mouse = 'PZ21';
+mouse = 'PZ25';
 
-for img_num = 1:1:16
+for img_num = 6:1:16
 
     if subtract_tissuemask == 1
         % load tissuemask mat file
