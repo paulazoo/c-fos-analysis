@@ -8,7 +8,7 @@ batch = 'paula_TH22';
 channel_num = 1;
 mouse = 'PZ25';
 
-for img_num = 6:1:16
+for img_num = 1:1:16
 
     if subtract_tissuemask == 1
         % load tissuemask mat file

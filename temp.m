@@ -1,65 +1,24 @@
-mouse = 'PZ5';
-img_num = 10;
-region_name = 'grid';
+[cfosgrid_data5, cfostotalgrid_data5] = apply_grid('PZ5', 'paula_cFosCombined', 'cFos');
+[cfosgrid_data6, cfostotalgrid_data6] = apply_grid('PZ6', 'paula_cFosCombined', 'cFos');
+[cfosgrid_data7, cfostotalgrid_data7] = apply_grid('PZ7', 'paula_cFosCombined', 'cFos');
+[cfosgrid_data8, cfostotalgrid_data8] = apply_grid('PZ8', 'paula_cFosCombined', 'cFos');
+[cfosgrid_data9, cfostotalgrid_data9] = apply_grid('PZ9', 'paula_cFosCombined', 'cFos');
+[cfosgrid_data19, cfostotalgrid_data19] = apply_grid('PZ19', 'paula_cFosCombined', 'cFos');
+[cfosgrid_data21, cfostotalgrid_data21] = apply_grid('PZ21', 'paula_cFosCombined', 'cFos');
+[cfosgrid_data22, cfostotalgrid_data22] = apply_grid('PZ22', 'paula_cFosCombined', 'cFos');
+[cfosgrid_data23, cfostotalgrid_data23] = apply_grid('PZ23', 'paula_cFosCombined', 'cFos');
+[cfosgrid_data24, cfostotalgrid_data24] = apply_grid('PZ24', 'paula_cFosCombined', 'cFos');
+[cfosgrid_data25, cfostotalgrid_data25] = apply_grid('PZ25', 'paula_cFosCombined', 'cFos');
 
-% read in image
-cfos_img = imread(['E:\histology\paula\' mouse '\cropped\C2_' mouse '_' int2str(img_num) '_cropped.tif']);
-adjusted_cfos = imadjust(cfos_img);
 
-load(['E:\histology\paula\' mouse '\cropped\' mouse '_' int2str(img_num) '_tissuemask_cropped.mat'])
-
-% only analyze actual brain slice tissue
-cfos_img(tissue_mask == 0) = 0;
-
-cfos_mode = mode(cfos_img(cfos_img~=0));
-% disp(['Mode: ' int2str(cfos_mode)])
-max99 = prctile(cfos_img(cfos_img~=0), 99);
-% disp(['Max: ' int2str(max99)])
-
-thresh_value = (max99 - cfos_mode)*0.5 + cfos_mode; % threshold
-cfos_thresh = cfos_img > thresh_value;
-
-cfos_thresh2 = imfill(cfos_thresh,'holes');
-cfos_thresh3 = imopen(cfos_thresh2, ones(5,5));
-cfos_thresh4 = bwareaopen(cfos_thresh3, 50); % dont include rois less than 50 pixels in area
-cfos_thresh4_perim = bwperim(cfos_thresh4);
-overlay1 = imoverlay(adjusted_cfos, cfos_thresh4_perim, [1 0.1 .1]);
-figure
-imshow(overlay1)
-
-% watershed segmentation HERE
-% imposed = cfos_img;
-% imposed(~cfos_thresh4) = -Inf;
-% imposed = -imposed;
-% L = watershed(imposed);
-% L(~cfos_thresh4) = 0;
-% rgb = label2rgb(L,'jet',[.5 .5 .5]);
-% imshow(rgb)
-
-% circularity filter HERE
-
-load(['E:\histology\paula\' mouse '\cropped\' mouse '_' int2str(img_num) '_' region_name '_cropped.mat']) % load mask file
-
-[M, N] = size(masks);
-for i = 1:1:N
-    mask = masks{i};
-    mask(tissue_mask == 0) = 0;
-
-    % get area of mask region
-    mask_area = sum(mask(:));
-    % mask area can be big with larger pixel x pixel
-    mask_area = mask_area / 1000;
-    % disp(['Mask Area: ' num2str(mask_area)])
-    mask_cfos = cfos_thresh4;
-    mask_cfos(mask == 0) = 0;
-    % count connected components
-    cfos_comps = bwconncomp(cfos_thresh4);
-    num_cells = cfos_comps.NumObjects;
-    cell_freq = num_cells / mask_area;
-    % disp(['Num Cells: ' int2str(num_cells)])
-    % disp(['Cell Freq: ' num2str(cell_freq)])
-
-    save(['E:\histology\paula\' mouse '\' mouse '_' int2str(img_num) '_' names_key{i} '_cfos'], ...
-        'cfos_thresh4', 'mask', 'cfos_comps', 'mask_area', 'num_cells', 'cell_freq')
-
-end
+[thgrid_data5, thtotalgrid_data5] = apply_grid('PZ5', 'paula_TH22', 'TH');
+[thgrid_data6, thtotalgrid_data6] = apply_grid('PZ6', 'paula_TH22', 'TH');
+[thgrid_data7, thtotalgrid_data7] = apply_grid('PZ7', 'paula_TH22', 'TH');
+[thgrid_data8, thtotalgrid_data8] = apply_grid('PZ8', 'paula_TH22', 'TH');
+[thgrid_data9, thtotalgrid_data9] = apply_grid('PZ9', 'paula_TH22', 'TH');
+[thgrid_data19, thtotalgrid_data19] = apply_grid('PZ19', 'paula_TH22', 'TH');
+[thgrid_data21, thtotalgrid_data21] = apply_grid('PZ21', 'paula_TH22', 'TH');
+[thgrid_data22, thtotalgrid_data22] = apply_grid('PZ22', 'paula_TH22', 'TH');
+[thgrid_data23, thtotalgrid_data23] = apply_grid('PZ23', 'paula_TH22', 'TH');
+[thgrid_data24, thtotalgrid_data24] = apply_grid('PZ24', 'paula_TH22', 'TH');
+[thgrid_data25, thtotalgrid_data25] = apply_grid('PZ25', 'paula_TH22', 'TH');

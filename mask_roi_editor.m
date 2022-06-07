@@ -1,7 +1,7 @@
 % d = delete, a = add, p = save, q = quit w/o saving
 subtract_tissuemask = 1;
 batch = 'paula_TH22';
-mouse = 'PZ5';
+mouse = 'PZ9';
 
 if subtract_tissuemask == 1
     % load tissuemask mat file
