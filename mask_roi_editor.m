@@ -1,5 +1,5 @@
 % d = delete, a = add, p = save, q = quit w/o saving
-subtract_tissuemask = 1;
+subtract_tissuemask = 0;
 batch = 'paula_TH22';
 mouse = 'PZ9';
 
@@ -42,9 +42,9 @@ while user_done == 0
     % 97 a
     % 113 q
     % 101 e
-    value = double(get(gcf,'CurrentCharacter'));
+    keyvalue = double(get(gcf,'CurrentCharacter'));
     % disp(value)
-    if value == 100
+    if keyvalue == 100
         % 100 = d = delete
         h = imfreehand(gca);
         delete_region = createMask(h);
@@ -52,8 +52,10 @@ while user_done == 0
         mask_perim = bwperim(mask_png);
         roi_overlay = imoverlay(img_a, mask_perim, [1 0.1 .1]);
         disp('ROIs in selected region deleted.')
+        keyvalue = 32;
         imshow(roi_overlay)
-    elseif value == 97
+        set(gcf, 'Position', get(0, 'Screensize'));
+    elseif keyvalue == 97
         % 97 = a = add
         h = imfreehand(gca);
         add_roi = createMask(h);
@@ -62,20 +64,26 @@ while user_done == 0
         mask_perim = bwperim(mask_png);
         roi_overlay = imoverlay(img_a, mask_perim, [1 0.1 .1]);  
         disp('ROI added.')
+        keyvalue = 32;
         imshow(roi_overlay)
-    elseif value == 112
+        set(gcf, 'Position', get(0, 'Screensize'));
+    elseif keyvalue == 112
         % 112 = p = save
+        mask_png = bwareaopen(mask_png, 50);
         imwrite(mask_png, [maskpath maskfile])
         disp(['Mask saved to ' maskfile])
-    elseif value == 113
+        keyvalue = 32;
+    elseif keyvalue == 113
         % 113 = q = quit (without saving)
-        disp('Quitting without saving...')
+        disp('Quitting this image...')
         close('all')
         user_done = 1;
+    elseif keyvalue == 32
+        % 32 = spacebar does nothing but clear keyvalue's value
     else
         disp('unrecognized key: ')
-        disp(value)
+        disp(keyvalue)
     end
-    
+
 end
 

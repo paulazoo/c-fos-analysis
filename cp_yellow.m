@@ -1,4 +1,4 @@
-function yellow_count = cp_yellow(mouse)
+function cp_yellow(mouse)
 
     base_dir = 'E:\histology\paula\cellpose_data_copied\';
     cfos_batch = 'paula_cFosCombined';
@@ -6,6 +6,9 @@ function yellow_count = cp_yellow(mouse)
     mkdir([base_dir 'paula_yellow\'], mouse)
     
     total_imgs = 16;
+    if strcmp(mouse, 'PZ19')
+        total_imgs = 14;
+    end
     
     yellow_data = cell(total_imgs, 2);
 
