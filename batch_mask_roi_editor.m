@@ -5,10 +5,12 @@
 
 subtract_tissuemask = 1;
 batch = 'paula_TH22';
+img_batch = 'paula_TH22';
 channel_num = 1;
-mouse = 'PZ25';
+mouse = 'PZ9';
 
-for img_num = 1:1:16
+
+for img_num = 8:1:16
 
     if subtract_tissuemask == 1
         % load tissuemask mat file
@@ -30,7 +32,7 @@ for img_num = 1:1:16
 
     % load base image tif file
     % [imgfile,imgpath] = uigetfile('.tif', 'Select image tif', ['E:\histology\paula\cellpose_data_copied\' batch '\' mouse]);
-    img_tif = imread(['E:\histology\paula\cellpose_data_copied\' batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped.tif']);
+    img_tif = imread(['E:\histology\paula\cellpose_data_copied\' img_batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped.tif']);
     img_a = imadjust(img_tif);
     [M, N] = size(img_a);
 
@@ -71,7 +73,7 @@ for img_num = 1:1:16
             max_roi_idx = max(mask_png(:));
             mask_png(add_roi) = (max_roi_idx + 1);
             mask_perim = bwperim(mask_png);
-            roi_overlay = imoverlay(img_a, mask_perim, [1 0.1 .1]);  
+            roi_overlay = imoverlay(img_a, mask_perim, [1 0.1 .1]);
             disp('ROI added.')
             keyvalue = 32;
             imshow(roi_overlay)
@@ -80,7 +82,7 @@ for img_num = 1:1:16
             % 112 = p = save
             mask_png = bwareaopen(mask_png, 50);
             imwrite(mask_png, ['E:\histology\paula\cellpose_data_copied\' batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped_cp_masks.png'])
-            disp(['Mask saved to C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped_cp_masks.png'])
+            disp(['Mask saved to ' batch '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped_cp_masks.png'])
             keyvalue = 32;
         elseif keyvalue == 113
             % 113 = q = quit (without saving)

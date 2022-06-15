@@ -1,4 +1,4 @@
-% d = delete, a = add, p = save, q = quit w/o saving
+% d = delete, a = add, p = save, q = quit w/o saving, l = use ln in region
 subtract_tissuemask = 0;
 % batch = 'paula_TH22';
 mouse = 'SZ897';
@@ -14,6 +14,13 @@ end
 mask_png = imread([maskpath maskfile]);
 if subtract_tissuemask == 1
     mask_png(tissue_mask == 0) = 0;
+end
+
+% load ln mask png file
+[lnfile,lnpath] = uigetfile('.png', 'Select ln png', ['E:\histology\stephen\' mouse]);
+ln_png = imread([lnpath lnfile]);
+if subtract_tissuemask == 1
+    ln_png(tissue_mask == 0) = 0;
 end
 
 rois = regionprops(mask_png,'Centroid', 'PixelIdxList');
@@ -78,6 +85,11 @@ while user_done == 0
         disp('Quitting this image...')
         close('all')
         user_done = 1;
+    elseif keyvalue == 108
+        % 108 = l = use ln
+        h = imfreehand(gca);
+        ln_roi = createMask(h);
+        mask_png(ln_roi) = ln_png(ln_roi);
     elseif keyvalue == 32
         % 32 = spacebar does nothing but clear keyvalue's value
     else

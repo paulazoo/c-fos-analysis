@@ -13,12 +13,10 @@ all_selimgs = {[6, 7, 8, 9], [6, 7, 8, 9], [6, 7, 8, 9], [6, 7, 8, 9], ...
 
 for m = 1:1:length(mice)
     mouse = convertStringsToChars(mice(m));
-    apply_grid(mouse, 'paula_cFosCombined', 'cFos');
-    apply_grid(mouse, 'paula_TH22', 'TH');
-    cp_yellow(mouse);
-    apply_grid(mouse, 'paula_yellow', 'yellow');
+%     apply_grid(mouse, 'paula_cFosCombined', 'cFos');
+%     apply_grid(mouse, 'paula_TH22', 'TH');
+    find_cfos_peaks(mouse);
+    apply_grid(mouse, 'paula_yellowPeak50', 'yellow');
     selimgs = all_selimgs{m};
-    get_custom_data(mouse, 'paula_cFosCombined', selimgs, groups, group_names, output_name)
-    get_custom_data(mouse, 'paula_TH22', selimgs, groups, group_names, output_name)
-    get_custom_data(mouse, 'paula_yellow', selimgs, groups, group_names, output_name)
+    get_custom_data(mouse, 'paula_yellowPeak50', selimgs, groups, group_names, output_name)
 end

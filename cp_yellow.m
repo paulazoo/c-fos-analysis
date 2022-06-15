@@ -20,7 +20,7 @@ function cp_yellow(mouse)
         th_cp = imread([base_dir th_batch '\' mouse '\C1_' mouse '_' int2str(img_num) '_cropped_cp_masks.png']);
         th_cp = logical(th_cp);
 
-        th_cp(cfos_cp < 1) = 0;
+        th_cp(cfos_cp == 0) = 0;
 
         yellow_cp = cfos_cp + th_cp;
         rois = regionprops(cfos_cp, yellow_cp, "PixelValues");

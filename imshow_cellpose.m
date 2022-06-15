@@ -8,6 +8,9 @@ function imshow_cellpose(mouse, img_num, batch, cp_type)
     elseif strcmp(cp_type, 'cFos')
         channel_num = 2;
         ln = 0;
+    elseif strcmp(cp_type, 'yellow')
+        channel_num = 4;
+        ln = 0;
     end
     base_dir = 'E:\histology\paula\cellpose_data_copied\';
     
@@ -22,7 +25,11 @@ function imshow_cellpose(mouse, img_num, batch, cp_type)
     cp_perim = bwperim(cp_img_a);
     
     % read in image
-    if ln == 1
+    if strcmp(cp_type, 'yellow')
+        img = imread([base_dir 'paula_TH22\' mouse '\C1_' mouse '_' int2str(img_num) '_cropped.tif']);
+    elseif strcmp(batch, 'paula_cFosCombined')
+        img = imread([base_dir 'paula_cFos16\' mouse '\C2_' mouse '_' int2str(img_num) '_cropped.tif']);
+    elseif ln == 1
         img = imread([base_dir batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped_ln.tif']);
     else
         img = imread([base_dir batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped.tif']);
