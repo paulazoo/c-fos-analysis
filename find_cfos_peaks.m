@@ -1,7 +1,8 @@
 function [cent, cent_map, yellow_png] = find_cfos_peaks(mouse)
 
 base_dir = 'E:\histology\paula\cellpose_data_copied\';
-mkdir([base_dir 'paula_yellowPeak\'], mouse)
+batch_name = 'yellowPeak50';
+mkdir([base_dir 'paula_' batch_name '\'], mouse)
 
 total_imgs = 16;
 if strcmp(mouse, 'PZ19')
@@ -105,7 +106,7 @@ if with_th == 1
 %     disp(['th_count: ' int2str(M)])
 %     disp(['cfos/th: ' num2str(yellow_count/M)])
 end
-imwrite(yellow_png, [base_dir 'paula_yellowPeak\' mouse '\C4_' mouse '_' int2str(img_num) '_cropped_cp_masks.png'])
+imwrite(yellow_png, [base_dir 'paula_' batch_name '\' mouse '\C4_' mouse '_' int2str(img_num) '_cropped_cp_masks.png'])
 
 end
 end
