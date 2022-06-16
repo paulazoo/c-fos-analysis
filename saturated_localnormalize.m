@@ -12,11 +12,11 @@ file_list = strrep(file_list, '.tif', '');
 
 
 %% Make ln folder
-mkdir([base_dir mouse '\' ln_folder])
+mkdir([base_dir ln_folder])
 
 for i = 1:1:length(file_list)
     %% Load image
-    th_img = imread([base_dir mouse '\' img_folder file_list{i} '.tif']);
+    th_img = imread([base_dir img_folder file_list{i} '.tif']);
     
     %% Local Normalize for visualizing saturated regions CP Params
     gausssizes = [cp_diameter, cp_diameter*0.25];
@@ -37,6 +37,6 @@ for i = 1:1:length(file_list)
     ln_img2 = uint16(ln_img2);
 
     % write output
-    imwrite(ln_img2, [base_dir mouse '\' ln_folder file_list{i} '_ln.tif'], 'tif')
+    imwrite(ln_img2, [base_dir ln_folder file_list{i} '_ln.tif'], 'tif')
 
 end
