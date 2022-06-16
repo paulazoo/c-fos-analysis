@@ -7,10 +7,10 @@ subtract_tissuemask = 1;
 batch = 'paula_TH22';
 img_batch = 'paula_TH22';
 channel_num = 1;
-mouse = 'PZ9';
+mouse = 'PZ19';
 
 
-for img_num = 8:1:16
+for img_num = 6:1:9
 
     if subtract_tissuemask == 1
         % load tissuemask mat file
@@ -26,13 +26,18 @@ for img_num = 8:1:16
     end
     mask_png = bwareaopen(mask_png, 50);
 
-    rois = regionprops(mask_png,'Centroid', 'PixelIdxList');
-    roi_centroids = cat(1,rois.Centroid);
+    rois = regionprops(mask_png, mask_png, 'PixelValues');
+    [M, N] = size(rois);
+    
     mask_perim = bwperim(mask_png);
 
     % load base image tif file
     % [imgfile,imgpath] = uigetfile('.tif', 'Select image tif', ['E:\histology\paula\cellpose_data_copied\' batch '\' mouse]);
-    img_tif = imread(['E:\histology\paula\cellpose_data_copied\' img_batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped.tif']);
+    if strcmp(img_batch, 'paula_THln22')
+        img_tif = imread(['E:\histology\paula\cellpose_data_copied\' img_batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped_ln.tif']);
+    else
+        img_tif = imread(['E:\histology\paula\cellpose_data_copied\' img_batch '\' mouse '\C' int2str(channel_num) '_' mouse '_' int2str(img_num) '_cropped.tif']);
+    end
     img_a = imadjust(img_tif);
     [M, N] = size(img_a);
 

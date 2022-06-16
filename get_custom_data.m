@@ -11,13 +11,13 @@ function get_custom_data(mouse, batch, selimgs, groups, group_names, output_name
 
     [M, N] = size(groups);
     customsect_data = cell(M, 5);
-    for j = 1:1:M
-        group = groups{j};
+    for out_group = 1:1:M
+        group = groups{out_group};
         [O, P] = size(group);
 
         group_num_cells = 0;
         group_mask_area = 0;
-        for k = 1:1:O
+        for k = 1:1:P
 
             for i = 1:1:length(selimgs)
                 img_num = selimgs(i);
@@ -30,11 +30,11 @@ function get_custom_data(mouse, batch, selimgs, groups, group_names, output_name
                 group_mask_area = group_mask_area + section_data{1, 5};
             end
         end
-        customsect_data{j, 1} = [mouse '_' int2str(img_num)];
-        customsect_data{j, 2} = group_names(j);
-        customsect_data{j, 3} = group_num_cells;
-        customsect_data{j, 4} = group_num_cells / group_mask_area;
-        customsect_data{j, 5} = group_mask_area;
+        customsect_data{out_group, 1} = [mouse '_' group_names(out_group)];
+        customsect_data{out_group, 2} = group_names(out_group);
+        customsect_data{out_group, 3} = group_num_cells;
+        customsect_data{out_group, 4} = group_num_cells / group_mask_area;
+        customsect_data{out_group, 5} = group_mask_area;
     end
 
     customtotal_data = cell(1, 5);

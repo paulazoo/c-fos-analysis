@@ -1,8 +1,8 @@
-function [cent, cent_map, yellow_png] = find_cfos_peaks(mouse)
+function [cent, cent_map, yellow_png] = find_cfos_peaks(mouse, batch_name)
 
 base_dir = 'E:\histology\paula\cellpose_data_copied\';
-batch_name = 'yellowPeak50';
-mkdir([base_dir 'paula_' batch_name '\'], mouse)
+mkdir([base_dir batch_name '\'], mouse)
+disp(mouse)
 
 total_imgs = 16;
 if strcmp(mouse, 'PZ19')
@@ -34,13 +34,12 @@ f_prime = single(cfos_img2)-single(imgaussfilt(single(cfos_img2),gausssizes(1)))
 ln_img = f_prime./(imgaussfilt(f_prime.^2,gausssizes(2)).^(1/2));
 ln_img(isnan(ln_img)) = 0;
 
-ln_img2 = uint16(ln_img);
 % ln_thresh = (max([min(max(ln_img2,[],1))  min(max(ln_img2,[],2))]));
-ln_thresh  = 0.5;
-%disp(ln_thresh)
-ln_img3 = ln_img2;
-ln_img3(ln_img3 < ln_thresh*2) = 0;
-ln_img3 = logical(ln_img3);
+ln_thresh  = prctile(ln_img(:), 90);
+% disp(ln_thresh)
+ln_img2 = ln_img;
+ln_img2(ln_img2 < ln_thresh) = 0;
+ln_img2 = logical(ln_img2);
 
 thres = (max([min(max(cfos_img2,[],1))  min(max(cfos_img2,[],2))]));
 filt = (fspecial('gaussian', 24,1)); %if needed modify the filter according to the expected peaks sizes
@@ -80,7 +79,7 @@ for j=1:length(y)
     end
 end
 
-cent_map(ln_img3 == 0) = 0;
+cent_map(ln_img2 == 0) = 0;
 
 
 %% out of TH masks
@@ -104,9 +103,9 @@ if with_th == 1
     end
 %     disp(['yellow_count: ' int2str(yellow_count)])
 %     disp(['th_count: ' int2str(M)])
-%     disp(['cfos/th: ' num2str(yellow_count/M)])
+%      disp([mouse '_' int2str(img_num) ' cfos/th: ' num2str(yellow_count/M)])
 end
-imwrite(yellow_png, [base_dir 'paula_' batch_name '\' mouse '\C4_' mouse '_' int2str(img_num) '_cropped_cp_masks.png'])
+imwrite(yellow_png, [base_dir batch_name '\' mouse '\C4_' mouse '_' int2str(img_num) '_cropped_cp_masks.png'])
 
 end
 end
