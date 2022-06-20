@@ -1,26 +1,26 @@
-prompt = {'Mouse:','Image Number:', 'Cropped? 1 = yes:'};
-default_input = {'PZ', '1', '1'};
-answer = inputdlg(prompt,'Tissue Mask Properties',[1 50], default_input);
+mouse = 'PZ25';
 
-mouse = answer{1};
-img_num = str2num(answer{2});
-cropped = answer{3};
+base_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH\';
+img_folder = [mouse '\'];
+tissuemask_folder = [mouse '_tissuemask\'];
 
-for i = 16:1:16
-    img_num = i;
+file_list = dir([base_dir img_folder '*.tif']);
+file_list = {file_list.name};
+file_list = strrep(file_list, '.tif', '');
 
-    if cropped == '1'
-        th_img = imread(['E:\histology\paula\' mouse '\cropped\C1_' mouse '_' int2str(img_num) '_cropped.tif']);
-    else
-        % read in image
-        % cfos_img = imread(['E:\histology\paula\' mouse '\C2_' mouse '_' int2str(img_num) '.tif']);
-        th_img = imread(['E:\histology\paula\' mouse '\C1_' mouse '_' int2str(img_num) '.tif']);
-    end
-    % adjusted_cfos = imadjust(cfos_img);
-    adjusted_th = imadjust(th_img);
+%% Make Tissue Mask Folder
+mkdir([base_dir tissuemask_folder])
 
+for i = 1:1:length(file_list)
+    %% Load image
+    img = imread([base_dir img_folder file_list{i} '.tif']);
+    adjusted_img = imadjust(img);
+
+    %% Show image
     figure('Name', ['Draw tissue for ' mouse '_' int2str(img_num)])
-    imshow(adjusted_th);
+    imshow(adjusted_img);
+    
+    %% Draw tissuemask
     hFH = imfreehand();
     tissue_mask = hFH.createMask();
     hole_done = 0;
@@ -37,10 +37,7 @@ for i = 16:1:16
     end
     % imshow(tissue_mask)
 
-    if cropped == '1'
-        save(['E:\histology\paula\' mouse '\cropped\' mouse '_' int2str(img_num) '_tissuemask_cropped.mat'], 'tissue_mask')
-    else
-        save(['E:\histology\paula\' mouse '\' mouse '_' int2str(img_num) '_tissuemask.mat'], 'tissue_mask')
-    end
+    %% Save result
+    save([base_dir tissuemask_folder mouse '_' int2str(img_num) '_tissuemask.mat'], 'tissue_mask')
 
 end

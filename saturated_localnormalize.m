@@ -1,12 +1,12 @@
 
-mouse = 'PZ5';
+mouse = 'PZ25';
 
 base_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH\';
-cp_diameter = 22;
+cp_diameter = 23;
 img_folder = [mouse '\'];
 ln_folder = [mouse '_ln\'];
 
-file_list = dir([base_dir mouse '\' img_folder '*.tif']);
+file_list = dir([base_dir img_folder '*.tif']);
 file_list = {file_list.name};
 file_list = strrep(file_list, '.tif', '');
 

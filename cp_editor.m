@@ -1,8 +1,8 @@
 
 mouse = 'PZ5';
 
-base_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH14\';
-cp_diameter = 14;
+base_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH23\';
+cp_diameter = 23;
 img_folder = [mouse '\'];
 ln_folder = [mouse '_ln\'];
 
@@ -10,7 +10,7 @@ file_list = dir([base_dir img_folder '*.tif']);
 file_list = {file_list.name};
 file_list = strrep(file_list, '.tif', '');
 
-for i = 1:1:length(file_list)
+for i = 12:1:length(file_list)
     %% Load image
     th_img = imread([base_dir img_folder file_list{i} '.tif']);
 
@@ -21,11 +21,21 @@ for i = 1:1:length(file_list)
     %% Load cp masks
     cp_masks = imread([base_dir img_folder file_list{i} '_cp_masks.png']);
     cp_masks1 = cp_masks;
+    cp_masks_show = cp_masks1;
     
     %% Show cp masks on adjusted image
     th_img_a = imadjust(th_img);
-    cp_over = labeloverlay(th_img_a, cp_masks1);
-    imshow(cp_over)
+    th_img_show = th_img_a;
+    cp_over = labeloverlay(th_img_show, cp_masks_show);
+    figure('Name', file_list{i})
+    fig_img = imshow(cp_over);    
+    
+    %% Don't always update axis
+    set(gca, 'xlimmode','manual',...
+        'ylimmode','manual',...
+        'zlimmode','manual',...
+        'climmode','manual',...
+        'alimmode','manual');
     
     %% Manual Editing
     
@@ -50,10 +60,12 @@ for i = 1:1:length(file_list)
             h = imfreehand(gca);
             delete_region = createMask(h);
             cp_masks1(delete_region) = 0;
-            cp_over = labeloverlay(th_img_a, cp_masks1);
+            cp_masks_show = cp_masks1;
+            cp_over = labeloverlay(th_img_show, cp_masks_show);
             disp('ROIs in selected region deleted.')
             keyvalue = 32;
-            imshow(cp_over)
+            delete(h)
+            set(fig_img, 'CData', cp_over)
             
         elseif keyvalue == 97
             % 97 = a = add
@@ -61,46 +73,50 @@ for i = 1:1:length(file_list)
             add_roi = createMask(h);
             max_roi_idx = max(cp_masks1(:));
             cp_masks1(add_roi) = (max_roi_idx + 1);
-            cp_over = labeloverlay(th_img_a, cp_masks1);
+            cp_masks_show = cp_masks1;
+            cp_over = labeloverlay(th_img_show, cp_masks_show);
             disp('ROI added.')
             keyvalue = 32;
-            imshow(cp_over)
+            delete(h)
+            set(fig_img, 'CData', cp_over)
             
         elseif keyvalue == 31
             % 31 = down arrow = show ln image in region
             h = imfreehand(gca);
             ln_roi = createMask(h);
-            th_img_a(ln_roi) = ln_img_a(ln_roi);
-            cp_over = labeloverlay(th_img_a, cp_masks1);
+            th_img_show(ln_roi) = ln_img_a(ln_roi);
+            cp_over = labeloverlay(th_img_show, cp_masks_show);
             disp('Showing local normalization in region.')
             keyvalue = 32;
-            imshow(cp_over)
+            delete(h)
+            set(fig_img, 'CData', cp_over)
             
         elseif keyvalue == 30
             % 30 = up arrow = show original th img
-            th_img_a = imadjust(th_img);
-            cp_over = labeloverlay(th_img_a, cp_masks1);
+            th_img_show = th_img_a;
+            cp_over = labeloverlay(th_img_show, cp_masks_show);
             disp('Showing original image.')
             keyvalue = 32;
-            imshow(cp_over)
+            set(fig_img, 'CData', cp_over)
             
         elseif keyvalue == 104
             % 104 = h = hide masks in region
             h = imfreehand(gca);
             hide_roi = createMask(h);
-            cp_masks_hide = cp_masks1;
-            cp_masks_hide(hide_roi) = 0;
-            cp_over = labeloverlay(th_img_a, cp_masks_hide);
+            cp_masks_show(hide_roi) = 0;
+            cp_over = labeloverlay(th_img_show, cp_masks_show);
             disp('Hiding masks in region.')
             keyvalue = 32;
-            imshow(cp_over)
+            delete(h)
+            set(fig_img, 'CData', cp_over)
             
         elseif keyvalue == 117
             % 117 = u = unhide all masks
-            cp_over = labeloverlay(th_img_a, cp_masks1);
+            cp_masks_show = cp_masks1;
+            cp_over = labeloverlay(th_img_show, cp_masks_show);
             disp('Showing original image.')
             keyvalue = 32;
-            imshow(cp_over)            
+            set(fig_img, 'CData', cp_over)          
             
         elseif keyvalue == 112
             % 112 = p = save

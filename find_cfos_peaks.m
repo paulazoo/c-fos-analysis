@@ -1,24 +1,24 @@
 function [cent, cent_map, yellow_png] = find_cfos_peaks(mouse, batch_name)
 
-base_dir = 'E:\histology\paula\cellpose_data_copied\';
-mkdir([base_dir batch_name '\'], mouse)
-disp(mouse)
+mouse = 'PZ5';
 
-total_imgs = 16;
-if strcmp(mouse, 'PZ19')
-    total_imgs = 14;
-end
+base_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH23\';
+img_folder = [mouse '\'];
 
-for img_num = 1:1:total_imgs
-%% loading images/masks
-cfos_img = imread([base_dir 'paula_cFos16\' mouse '\C2_' mouse '_' int2str(img_num) '_cropped.tif']);
-load(['E:\histology\paula\' mouse '\cropped\' mouse '_' int2str(img_num) '_tissuemask_cropped.mat'], 'tissue_mask')
-th_cp_masks = imread([base_dir 'paula_TH22\' mouse '\C1_' mouse '_' int2str(img_num) '_cropped_cp_masks.png']);
+file_list = dir([base_dir img_folder '*.tif']);
+file_list = {file_list.name};
+file_list = strrep(file_list, '.tif', '');
 
-%% With TH option
 with_th = 1;
-yellow_png = zeros(size(cfos_img));
 
+for i = 12:1:length(file_list)
+    %% Load image
+    th_img = imread([base_dir img_folder file_list{i} '.tif']);
+
+    %% Load cp masks
+    cp_masks = imread([base_dir img_folder file_list{i} '_cp_masks.png']);
+    cp_masks1 = cp_masks;
+    
 %% c-Fos
 
 cfos_img2 = cfos_img;
@@ -84,8 +84,9 @@ cent_map(ln_img2 == 0) = 0;
 
 %% out of TH masks
 if with_th == 1
-    se = strel('disk', 1, 0); % Make round structuring element.
-    th_cp_masks2 = imerode(th_cp_masks, se);
+%     se = strel('disk', 1, 0); % Make round structuring element.
+%     th_cp_masks2 = imerode(th_cp_masks, se);
+    th_cp_masks2 = th_cp_masks;
     
     rois = regionprops(th_cp_masks2, cent_map, "PixelValues");
     roi_pixels = regionprops(th_cp_masks2, "PixelIdxList");

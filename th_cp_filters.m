@@ -1,7 +1,7 @@
 
 mouse = 'PZ5';
 
-base_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH14\';
+base_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH23\';
 img_folder = [mouse '\'];
 ln_folder = [mouse '_ln\'];
 
@@ -10,7 +10,7 @@ file_list = {file_list.name};
 file_list = strrep(file_list, '.tif', '');
 
 %% Params
-cp_diameter = 14;
+cp_diameter = 23;
 subtract_tissuemask = 0;
 tissuemask_folder = [mouse '_tissuemask\'];
 
@@ -19,21 +19,26 @@ show_result = 0;
 %% CP Notes
 
 % remember to try multiple diameters to really get down to the optimal one
+% edit cp filter prctile values before batch running
 
-%%
 
 for i = 1:1:length(file_list)
     %% Load image
     th_img = imread([base_dir img_folder file_list{i} '.tif']);
-
+    
     %% Load cp masks
     cp_masks = imread([base_dir img_folder file_list{i} '_cp_masks.png']);
     cp_masks1 = cp_masks;
     
-    %% Subtract tissuemask
+    %% Get and subtract tissuemask file if needed
+    % Could be better with just naming tissue masks based on matching entire filename because
+    % not all have the img_num in 3rd position...
     if subtract_tissuemask == 1
+        % Get img_num
+        split_filename = split(file_list{i}, '_');
+        img_num_str = split_filename(3, 1);
         % load tissuemask mat file
-        load([base_dir tissuemask_folder file_list{i} '*_tissuemask.mat'], 'tissue_mask')
+        load([base_dir '\' tissuemask_folder img_num_str '_tissuemask_cropped.mat'], 'tissue_mask')
     end
     
     %% Check cp masks (debugging)
@@ -95,12 +100,12 @@ for i = 1:1:length(file_list)
     cp_over2 = labeloverlay(th_img_a, cp_masks2);
     
     %% Get intensity threshold
-    % use 90th percentile from original image
-    int_thresh  = prctile(th_img(:), 90);
+    % use 80th percentile from original image
+    int_thresh  = prctile(th_img(:), 80);
         
     %% Especially prominent peaks are okay
-    % use 80th percentile for ln prom thresh
-    prom_thresh = prctile(ln_img(:), 80);
+    % use 99th percentile for ln prom thresh
+    prom_thresh = prctile(ln_img(:), 99);
             
     %% CP Low Int, Low Prom Filter
     cp_masks3 = cp_masks2;
@@ -122,10 +127,10 @@ for i = 1:1:length(file_list)
     
     %% Check cp masks (debugging)
     cp_over3 = labeloverlay(th_img_a, cp_masks3);
-    
+        
     %% Show Result
     if show_result == 1
-        figure('Name', [mouse '_' int2str(i)])
+        figure('Name', [file_list{i}])
         imshow(cp_over3)
     end
     
