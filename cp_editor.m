@@ -1,5 +1,8 @@
 
-mouse = 'PZ5';
+%% Params
+mouse = 'PZ23';
+start_file = 12;
+end_file = 16;
 
 base_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH23\';
 cp_diameter = 23;
@@ -10,7 +13,8 @@ file_list = dir([base_dir img_folder '*.tif']);
 file_list = {file_list.name};
 file_list = strrep(file_list, '.tif', '');
 
-for i = 12:1:length(file_list)
+
+for i = start_file:1:end_file
     %% Load image
     th_img = imread([base_dir img_folder file_list{i} '.tif']);
 

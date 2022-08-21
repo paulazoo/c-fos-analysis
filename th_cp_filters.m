@@ -1,5 +1,7 @@
 
-mouse = 'PZ5';
+mouse = 'PZ25';
+start_file = 12;
+end_file = 16;
 
 base_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH23\';
 img_folder = [mouse '\'];
@@ -11,8 +13,14 @@ file_list = strrep(file_list, '.tif', '');
 
 %% Params
 cp_diameter = 23;
-subtract_tissuemask = 0;
+subtract_tissuemask = 1;
+
+tissuemask_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH23\';
 tissuemask_folder = [mouse '_tissuemask\'];
+
+tissuemaskfile_list = dir([tissuemask_dir '\' tissuemask_folder '*.mat']);
+tissuemaskfile_list = {tissuemaskfile_list.name};
+tissuemaskfile_list = strrep(tissuemaskfile_list, '.mat', '');
 
 show_result = 0;
 
@@ -21,8 +29,8 @@ show_result = 0;
 % remember to try multiple diameters to really get down to the optimal one
 % edit cp filter prctile values before batch running
 
-
-for i = 1:1:length(file_list)
+% length(file_list)
+for i = start_file:1:end_file
     %% Load image
     th_img = imread([base_dir img_folder file_list{i} '.tif']);
     
@@ -31,14 +39,11 @@ for i = 1:1:length(file_list)
     cp_masks1 = cp_masks;
     
     %% Get and subtract tissuemask file if needed
-    % Could be better with just naming tissue masks based on matching entire filename because
-    % not all have the img_num in 3rd position...
     if subtract_tissuemask == 1
-        % Get img_num
-        split_filename = split(file_list{i}, '_');
-        img_num_str = split_filename(3, 1);
         % load tissuemask mat file
-        load([base_dir '\' tissuemask_folder img_num_str '_tissuemask_cropped.mat'], 'tissue_mask')
+        load([tissuemask_dir tissuemask_folder tissuemaskfile_list{i} '.mat'], 'tissue_mask')
+        % subtract tissue mask
+        cp_masks1(tissue_mask == 0) = 0;
     end
     
     %% Check cp masks (debugging)

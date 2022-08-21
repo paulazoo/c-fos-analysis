@@ -1,10 +1,10 @@
 base_dir = 'E:/histology/paula/';
 crop_height = 3000;
 crop_width = 4000;
-crop_pos = [2500 2500 crop_width crop_height];
+crop_pos = [4000 4000 crop_width crop_height];
 
 prompt = {'Mouse:', 'Use Prior Croprect? 1 for yes:', 'Crop masks? 1 for yes:'};
-default_input = {'PZ', '0', '1'};
+default_input = {'PZ', '0', '0'};
 answer = inputdlg(prompt,'Mouse Folder',[1 50], default_input);
 
 mouse = answer{1};
@@ -31,6 +31,7 @@ tic
 for i = 1:1:N
     img = imread([base_dir mouse '/' all_file_names{i}]);
 
+    % example filename: C1_PZ1_1.tif
     filename_split = split(all_file_names{i}, '_');
     A=filename_split(3);
     img_num = str2num(A{1}(1:end-4));
@@ -40,8 +41,8 @@ for i = 1:1:N
         [O, P] = size(croprect);
         if P<img_num || isempty(croprect{img_num})
             img_adjusted = imadjust(img);
-            disp(all_file_names{i})
             imshow(img_adjusted)
+            title(all_file_names{i})
 
             h = imrect(gca, crop_pos);
             croprect{img_num} = wait(h);
@@ -56,7 +57,7 @@ toc
 
 tic
 if crop_masks == '1'
-    % rect_masks
+    %% rect_masks
     all_maskfiles = dir(fullfile([base_dir mouse '\'], '*rect_mask.mat'));
     all_maskfile_names = {all_maskfiles(:).name};
     
@@ -79,7 +80,7 @@ if crop_masks == '1'
         save([base_dir mouse '/cropped/' name '_cropped'], 'masks')
     end
     
-    % tissuemasks
+    %% tissuemasks
     all_maskfiles = dir(fullfile([base_dir mouse '\'], '*tissuemask.mat'));
     all_maskfile_names = {all_maskfiles(:).name};
     
@@ -100,7 +101,7 @@ if crop_masks == '1'
     
     
 end
-toc
 
+close('all')
 save([base_dir mouse '/cropped/croprect.mat'], 'croprect')
-
+toc
