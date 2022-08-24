@@ -1,8 +1,10 @@
+%% Params
 base_dir = 'E:/histology/paula/';
 crop_height = 3000;
 crop_width = 4000;
 crop_pos = [4000 4000 crop_width crop_height];
 
+%% User input
 prompt = {'Mouse:', 'Use Prior Croprect? 1 for yes:', 'Crop masks? 1 for yes:'};
 default_input = {'PZ', '0', '0'};
 answer = inputdlg(prompt,'Mouse Folder',[1 50], default_input);
@@ -11,6 +13,7 @@ mouse = answer{1};
 use_prior_croprect = answer{2};
 crop_masks = answer{3};
 
+%% Directory
 all_files = dir(fullfile([base_dir mouse '\'], '*.tif'));
 
 all_file_names = {all_files(:).name};
@@ -26,6 +29,7 @@ else
     croprect = {};
 end
 
+%% Crop each image
 [M, N] = size(all_file_names);
 tic
 for i = 1:1:N
