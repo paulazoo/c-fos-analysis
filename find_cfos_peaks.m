@@ -1,15 +1,16 @@
 function find_cfos_peaks(mouse, start_file, end_file)
 %% Params
-% mouse = 'PZ5';
+mouse = 'PZ39';
 % start_file = 13;
 % end_file = 16;
 
-cfos_dir = 'E:\histology\paula\cellpose_data_copied\paula_cFos16\';
-img_folder = [mouse '\'];
+cfos_dir = 'E:\histology\paula\';
+img_folder = [mouse '\cropped\'];
+cfos_channel_num = '2';
 
 show_results = 0;
 
-file_list = dir([cfos_dir img_folder '*.tif']);
+file_list = dir([cfos_dir img_folder 'C' cfos_channel_num '_*.tif']);
 file_list = {file_list.name};
 file_list = strrep(file_list, '.tif', '');
 
@@ -21,8 +22,8 @@ ln_thresh_percentile = 90;
 int_thresh_percentile = 30;
 
 %% Tissuemask Params
-subtract_tissuemask = 1;
-tissuemask_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH23\';
+subtract_tissuemask = 0;
+tissuemask_dir = 'E:\histology\paula\';
 tissuemask_folder = [mouse '_tissuemask\'];
 
 tissuemaskfile_list = dir([tissuemask_dir tissuemask_folder '*.mat']);
@@ -30,10 +31,10 @@ tissuemaskfile_list = {tissuemaskfile_list.name};
 tissuemaskfile_list = strrep(tissuemaskfile_list, '.mat', '');
 
 %% With TH option
-with_th = 0;
-yellow_dir = 'E:\histology\paula\cellpose_data_copied\paula_yellow\';
+with_th = 1;
+yellow_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_yellow\';
 
-th_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH23\';
+th_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_TH23\';
 th_img_folder = [mouse '\'];
 
 thfile_list = dir([th_dir img_folder '*.tif']);
