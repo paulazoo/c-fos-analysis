@@ -141,9 +141,9 @@ for i = 1:1:length(file_list)
     %% Save Result
     cp_count = regionprops(cp_masks3, "Centroid");
     [M, N] = size(cp_count);
-    save([base_dir img_folder file_list{i} '_count’ int2str(M)], cp_count)
+    save([base_dir img_folder file_list{i} '_count' int2str(M)], cp_count)
     
     imwrite(cp_masks3, [base_dir img_folder file_list{i} '_cp_masks.png'])
-end
+   end
 
 end
