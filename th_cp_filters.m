@@ -1,7 +1,7 @@
-
-mouse = 'PZ25';
-start_file = 12;
-end_file = 16;
+function th_cp_filters(mouse)
+% mouse = 'PZ25';
+% start_file = 12;
+% end_file = 16;
 
 base_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH23\';
 img_folder = [mouse '\'];
@@ -30,7 +30,7 @@ show_result = 0;
 % edit cp filter prctile values before batch running
 
 % length(file_list)
-for i = start_file:1:end_file
+for i = 1:1:length(file_list)
     %% Load image
     th_img = imread([base_dir img_folder file_list{i} '.tif']);
     
@@ -140,6 +140,11 @@ for i = start_file:1:end_file
     end
     
     %% Save Result
+    cp_count = regionprops(cp_masks3, "Centroid");
+    [M, N] = size(cp_count);
+    save([base_dir img_folder file_list{i} '_count’ int2str(M)], cp_count)
+    
     imwrite(cp_masks3, [base_dir img_folder file_list{i} '_cp_masks.png'])
 end
 
+end
