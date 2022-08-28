@@ -1,6 +1,6 @@
-function find_cfos_peaks(mouse, start_file, end_file)
+function find_cfos_peaks(mouse)
 %% Params
-mouse = 'PZ39';
+% mouse = 'PZ39';
 % start_file = 13;
 % end_file = 16;
 
@@ -47,7 +47,7 @@ if with_th == 1
 end
 mkdir(cfos_dir, [mouse '_cfospeaks'])
 
-for i = start_file:1:end_file
+for i = 1:1:length(file_list)
     tic
     %% Load c-Fos image
     cfos_img = imread([cfos_dir img_folder file_list{i} '.tif']);
