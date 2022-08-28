@@ -5,6 +5,7 @@ line_height = 2100;
 
 %% User input
 prompt = {'Mouse:', 'Img Nums:'};
+% space between matrix numbers
 default_input = {'PZ', ''};
 answer = inputdlg(prompt,'Halfslice Line Properties',[1 50], default_input);
 
