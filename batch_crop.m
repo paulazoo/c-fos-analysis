@@ -32,7 +32,9 @@ end
 %% Crop each image
 [M, N] = size(all_file_names);
 tic
-for i = 1:1:N
+for i=1:1:N
+%     for i = 10:12
+% for i = 9:10
     img = imread([base_dir mouse '/' all_file_names{i}]);
 
     % example filename: C1_PZ1_1.tif

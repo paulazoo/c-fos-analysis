@@ -1,10 +1,10 @@
 
 %% Params
-mouse = 'PZ23';
-start_file = 12;
-end_file = 16;
+mouse = 'PZ29';
+start_file = 7;
+end_file = 14;
 
-base_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH23\';
+base_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_TH23\';
 cp_diameter = 23;
 img_folder = [mouse '\'];
 ln_folder = [mouse '_ln\'];

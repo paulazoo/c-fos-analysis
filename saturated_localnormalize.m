@@ -1,7 +1,7 @@
+function saturated_localnormalize(mouse)
+% mouse = 'PZ29';
 
-mouse = 'PZ25';
-
-base_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH\';
+base_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_TH23\';
 cp_diameter = 23;
 img_folder = [mouse '\'];
 ln_folder = [mouse '_ln\'];
@@ -38,5 +38,7 @@ for i = 1:1:length(file_list)
 
     % write output
     imwrite(ln_img2, [base_dir ln_folder file_list{i} '_ln.tif'], 'tif')
+
+end
 
 end

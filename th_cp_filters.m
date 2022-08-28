@@ -1,11 +1,10 @@
 
-mouse = 'PZ25';
-start_file = 12;
-end_file = 16;
+mouse = 'PZ43';
+start_file = 9; % start_file 9 = img_5 for PZ43
+end_file = 9;
 
-base_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH23\';
+base_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_TH23\';
 img_folder = [mouse '\'];
-ln_folder = [mouse '_ln\'];
 
 file_list = dir([base_dir '\' img_folder '*.tif']);
 file_list = {file_list.name};
