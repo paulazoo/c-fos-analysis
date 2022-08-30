@@ -1,7 +1,7 @@
 function saturated_localnormalize(mouse)
 % mouse = 'PZ29';
 
-base_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_TH23\';
+base_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_TH\';
 cp_diameter = 23;
 img_folder = [mouse '\'];
 ln_folder = [mouse '_ln\'];

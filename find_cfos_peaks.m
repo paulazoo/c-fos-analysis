@@ -34,10 +34,10 @@ tissuemaskfile_list = strrep(tissuemaskfile_list, '.mat', '');
 with_th = 1;
 yellow_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_yellow\';
 
-th_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_TH23\';
+th_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_TH\';
 th_img_folder = [mouse '\'];
 
-thfile_list = dir([th_dir img_folder '*.tif']);
+thfile_list = dir([th_dir th_img_folder '*.tif']);
 thfile_list = {thfile_list.name};
 thfile_list = strrep(thfile_list, '.tif', '');
 
@@ -51,7 +51,7 @@ for i = 1:1:length(file_list)
     tic
     %% Load c-Fos image
     cfos_img = imread([cfos_dir img_folder file_list{i} '.tif']);
-
+    
     %% Load TH cp masks
     if with_th == 1
         th_cp_masks = imread([th_dir th_img_folder thfile_list{i} '_cp_masks.png']);

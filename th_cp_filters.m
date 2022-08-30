@@ -3,16 +3,16 @@ function th_cp_filters(mouse)
 % start_file = 12;
 % end_file = 16;
 
-base_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_TH23\';
+base_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_TH\';
 img_folder = [mouse '\'];
 
-file_list = dir([base_dir '\' img_folder '*.tif']);
+file_list = dir([base_dir img_folder '*.tif']);
 file_list = {file_list.name};
 file_list = strrep(file_list, '.tif', '');
 
 %% Params
 cp_diameter = 23;
-subtract_tissuemask = 1;
+subtract_tissuemask = 0;
 
 tissuemask_dir = 'E:\histology\paula\cellpose_data_copied\paula_TH23\';
 tissuemask_folder = [mouse '_tissuemask\'];
@@ -61,7 +61,7 @@ for i = 1:1:length(file_list)
     
     %% Check cp masks (debugging)
     th_img_a = imadjust(th_img);
-    cp_over1 = labeloverlay(th_img_a, cp_masks1);
+    % cp_over1 = labeloverlay(th_img_a, cp_masks1);
     
     %% Local Normalize for finding cell (and not axon surrounded) regions Params
     gausssizes = [cp_diameter, cp_diameter*3];
@@ -101,7 +101,7 @@ for i = 1:1:length(file_list)
     
     
     %% Check cp masks (debugging)
-    cp_over2 = labeloverlay(th_img_a, cp_masks2);
+    % cp_over2 = labeloverlay(th_img_a, cp_masks2);
     
     %% Get intensity threshold
     % use 80th percentile from original image
@@ -130,7 +130,7 @@ for i = 1:1:length(file_list)
     end
     
     %% Check cp masks (debugging)
-    cp_over3 = labeloverlay(th_img_a, cp_masks3);
+    % cp_over3 = labeloverlay(th_img_a, cp_masks3);
         
     %% Show Result
     if show_result == 1
@@ -141,9 +141,9 @@ for i = 1:1:length(file_list)
     %% Save Result
     cp_count = regionprops(cp_masks3, "Centroid");
     [M, N] = size(cp_count);
-    save([base_dir img_folder file_list{i} '_count' int2str(M)], cp_count)
+    save([base_dir img_folder file_list{i} '_count' num2str(M)], 'cp_count')
     
     imwrite(cp_masks3, [base_dir img_folder file_list{i} '_cp_masks.png'])
-   end
+end
 
 end

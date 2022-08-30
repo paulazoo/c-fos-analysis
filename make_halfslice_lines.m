@@ -1,5 +1,5 @@
 %% Params
-% base_dir = 'E:/histology/paula/';
+base_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_TH\';
 channel_num = '1';
 line_height = 2100;
 
@@ -13,23 +13,25 @@ mouse = answer{1};
 img_nums_input = answer{2};
 rel_img_nums = str2num(img_nums_input);
 
-all_files = dir(fullfile([base_dir mouse '/cropped/'], ['C' channel_num '_*.tif']));
+img_folder = [mouse '\'];
+all_files = dir(fullfile([base_dir img_folder], ['C' channel_num '_*.tif']));
 all_file_names = {all_files(:).name};
 
 %% Make halfslice lines for each image
 [M, N] = size(all_file_names);
 for i = 1:1:N
-    img = imread([base_dir mouse '/cropped/' all_file_names{i}]);
+    img = imread([base_dir img_folder all_file_names{i}]);
 
+    %% Check if img_num is one to be analyzed
     % example filename: C1_PZ1_1.tif
     filename_split = split(all_file_names{i}, '_');
     A=filename_split(3);
     %img_num = str2num(A{1}(1:end-4)); mac 220821
     img_num = str2num(A{1});
     
-    %% Check if img_num is one to be analyzed
     img_num_included = ismember(img_num, rel_img_nums);
     
+    %% if relevant img_num, make lines
     if img_num_included
 
         %% Show image
@@ -44,6 +46,7 @@ for i = 1:1:N
         % must draw downwards, position = [top_pt, bottom_pt]
         rhs_line = imline(gca, [500 500], [500 500+line_height]);
         rhs_line_pos = wait(rhs_line);
+        close
 
         %% Use line to get coordinates
         % imline position: x goes right and y goes down
@@ -55,7 +58,7 @@ for i = 1:1:N
         rhs_line_y = rhs_line_pos(2, 2);
 
         %% Save halfslice line coordinates
-        save([base_dir mouse '/cropped/' mouse '_' int2str(img_num) '_halfslicelines'], 'lhs_line_x', 'lhs_line_y', 'rhs_line_x', 'rhs_line_y')
+        save([base_dir img_folder 'C0_' mouse '_' int2str(img_num) '_halfslicelines'], 'lhs_line_x', 'lhs_line_y', 'rhs_line_x', 'rhs_line_y')
     end
 
 end
