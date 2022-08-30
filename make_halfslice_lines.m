@@ -20,19 +20,18 @@ all_file_names = {all_files(:).name};
 %% Make halfslice lines for each image
 [M, N] = size(all_file_names);
 for i = 1:1:N
-    img = imread([base_dir img_folder all_file_names{i}]);
-
     %% Check if img_num is one to be analyzed
     % example filename: C1_PZ1_1.tif
     filename_split = split(all_file_names{i}, '_');
     A=filename_split(3);
-    %img_num = str2num(A{1}(1:end-4)); mac 220821
     img_num = str2num(A{1});
     
     img_num_included = ismember(img_num, rel_img_nums);
     
     %% if relevant img_num, make lines
     if img_num_included
+        %% Load image
+        img = imread([base_dir img_folder all_file_names{i}]);
 
         %% Show image
         img_adjusted = imadjust(img);

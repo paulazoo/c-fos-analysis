@@ -1,12 +1,11 @@
-function rois_by_dist(mouse, img_nums_input)
 %% User input
-% prompt = {'Mouse:', 'Img Nums:'};
-% % space between matrix numbers
-% default_input = {'PZ', ''};
-% answer = inputdlg(prompt,'Halfslice Line Properties',[1 50], default_input);
-% 
-% mouse = answer{1};
-% img_nums_input = answer{2};
+prompt = {'Mouse:', 'Img Nums:'};
+% space between matrix numbers
+default_input = {'PZ', ''};
+answer = inputdlg(prompt,'Halfslice Line Properties',[1 50], default_input);
+
+mouse = answer{1};
+img_nums_input = answer{2};
 rel_img_nums = str2num(img_nums_input);
 
 %% Params
@@ -100,6 +99,5 @@ for i = 1:1:N
     end
 end
 
-save([base_dir img_folder 'C1_' mouse '_0_alldists'], 'all_x_dists', 'all_y_dists')
-end
+save([base_dir img_folder 'C1_' mouse '_0_all_dists'], 'all_x_dists', 'all_y_dists')
     
