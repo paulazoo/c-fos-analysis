@@ -49,7 +49,7 @@ for i = 1:1:N
 
         %% Use line to get coordinates
         % imline position: x goes right and y goes down
-        % Line?s x value itself is horizontal 0 (lhs_line_x)
+        % Line's x value itself is horizontal 0 (lhs_line_x)
         % Bottom of the line is vertical 0 (lhs_line_y)
         lhs_line_x = lhs_line_pos(2, 1);
         lhs_line_y = lhs_line_pos(2, 2);

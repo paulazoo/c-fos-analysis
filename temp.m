@@ -43,3 +43,102 @@
 % find_cfos_peaks('PZ46')
 % find_cfos_peaks('PZ47')
 % find_cfos_peaks('PZ48')
+
+% cp_yellow('PZ44')
+% cp_yellow('PZ45')
+% cp_yellow('PZ46')
+% cp_yellow('PZ47')
+% cp_yellow('PZ48')
+
+%% cp yellow dists
+th_base_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_TH\';
+cfos_base_dir = 'E:\histology\paula\cellpose_data_copied\220830paula_yellow2\';
+[x1 y1 z1] = rois_by_dist('PZ43', '3 4 5 6 7 8 9 10', th_base_dir, '1');
+[x2 y2 z2] = rois_by_dist('PZ43', '3 4 5 6 7 8 9 10', cfos_base_dir, '4');
+disp(length(x2)/length(x1))
+[x1 y1 z1] = rois_by_dist('PZ44', '2 3 4 5 6 7 8 9', th_base_dir, '1');
+[x2 y2 z2] = rois_by_dist('PZ44', '2 3 4 5 6 7 8 9', cfos_base_dir, '4');
+disp(length(x2)/length(x1))
+[x1 y1 z1] = rois_by_dist('PZ45', '5 6 7 8 9 10 11 12', th_base_dir, '1');
+[x2 y2 z2] = rois_by_dist('PZ45', '5 6 7 8 9 10 11 12', cfos_base_dir, '4');
+disp(length(x2)/length(x1))
+[x1 y1 z1] = rois_by_dist('PZ39', '3 4 5 6 7 8 9 10', th_base_dir, '1');
+[x2 y2 z2] = rois_by_dist('PZ39', '3 4 5 6 7 8 9 10', cfos_base_dir, '4');
+disp(length(x2)/length(x1))
+[x1 y1 z1] = rois_by_dist('PZ46', '5 6 7 8 9 10 11 12', th_base_dir, '1');
+[x2 y2 z2] = rois_by_dist('PZ46', '5 6 7 8 9 10 11 12', cfos_base_dir, '4');
+disp(length(x2)/length(x1))
+[x1 y1 z1] = rois_by_dist('PZ47', '5 6 7 8 9 10 11 12', th_base_dir, '1');
+[x2 y2 z2] = rois_by_dist('PZ47', '5 6 7 8 9 10 11 12', cfos_base_dir, '4');
+disp(length(x2)/length(x1))
+[x1 y1 z1] = rois_by_dist('PZ48', '3 4 5 6 7 8 9 10', th_base_dir, '1');
+[x2 y2 z2] = rois_by_dist('PZ48', '3 4 5 6 7 8 9 10', cfos_base_dir, '4');
+disp(length(x2)/length(x1))
+
+%% TH dists
+% close('all')
+% allx = [];
+% ally = [];
+% allz = [];
+% [x y z] = rois_by_dist('PZ43', '3 4 5 6 7 8 9 10');
+% allx = vertcat(allx, x);
+% ally = vertcat(ally, y);
+% allz = vertcat(allz, z);
+% [x y z] = rois_by_dist('PZ44', '2 3 4 5 6 7 8 9');
+% allx = vertcat(allx, x);
+% ally = vertcat(ally, y);
+% allz = vertcat(allz, z);
+% [x y z] = rois_by_dist('PZ45', '5 6 7 8 9 10 11 12');
+% allx = vertcat(allx, x);
+% ally = vertcat(ally, y);
+% allz = vertcat(allz, z);
+% disp(length(allx) / 3) % 775.3333
+% figure
+% histogram(ally, 3)
+% 
+% allx = [];
+% ally = [];
+% allz = [];
+% [x y z] = rois_by_dist('PZ39', '3 4 5 6 7 8 9 10');
+% allx = vertcat(allx, x);
+% ally = vertcat(ally, y);
+% allz = vertcat(allz, z);
+% [x y z] = rois_by_dist('PZ46', '5 6 7 8 9 10 11 12');
+% allx = vertcat(allx, x);
+% ally = vertcat(ally, y);
+% allz = vertcat(allz, z);
+% [x y z] = rois_by_dist('PZ47', '5 6 7 8 9 10 11 12');
+% allx = vertcat(allx, x);
+% ally = vertcat(ally, y);
+% allz = vertcat(allz, z);
+% [x y z] = rois_by_dist('PZ48', '3 4 5 6 7 8 9 10');
+% allx = vertcat(allx, x);
+% ally = vertcat(ally, y);
+% allz = vertcat(allz, z);
+% disp(length(allx) / 4) % 752.2500
+% figure
+% histogram(ally, 3)
+% 
+% allx = [];
+% ally = [];
+% allz = [];
+% [x y z] = rois_by_dist('PZ54', '2 3 4 5 6 7 8 9');
+% allx = vertcat(allx, x);
+% ally = vertcat(ally, y);
+% allz = vertcat(allz, z);
+% [x y z] = rois_by_dist('PZ55', '4 5 6 7 8 9 10 11');
+% allx = vertcat(allx, x);
+% ally = vertcat(ally, y);
+% allz = vertcat(allz, z);
+% [x y z] = rois_by_dist('PZ56', '3 4 5 6 7 8 9 10');
+% allx = vertcat(allx, x);
+% ally = vertcat(ally, y);
+% allz = vertcat(allz, z);
+% [x y z] = rois_by_dist('PZ57', '3 4 5 6 7 8 9 10');
+% allx = vertcat(allx, x);
+% ally = vertcat(ally, y);
+% allz = vertcat(allz, z);
+% disp(length(allx) / 4)
+% figure
+% histogram(ally, 3)
+
