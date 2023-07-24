@@ -44,35 +44,38 @@
 % find_cfos_peaks('PZ47')
 % find_cfos_peaks('PZ48')
 
-% cp_yellow('PZ44')
-% cp_yellow('PZ45')
-% cp_yellow('PZ46')
-% cp_yellow('PZ47')
-% cp_yellow('PZ48')
 
 %% cp yellow dists
 th_base_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_TH\';
-cfos_base_dir = 'E:\histology\paula\cellpose_data_copied\220830paula_yellow2\';
-[x1 y1 z1] = rois_by_dist('PZ43', '3 4 5 6 7 8 9 10', th_base_dir, '1');
-[x2 y2 z2] = rois_by_dist('PZ43', '3 4 5 6 7 8 9 10', cfos_base_dir, '4');
+cfos_base_dir = 'E:\histology\paula\cellpose_data_copied\220923paula_yellow7\';
+% cp_yellow('PZ43')
+%out of 8 slices, pick ending 6
+[x1 y1 z1] = rois_by_dist('PZ43', '5 6 7 8 9 10', th_base_dir, '1');
+[x2 y2 z2] = rois_by_dist('PZ43', '5 6 7 8 9 10', cfos_base_dir, '4');
 disp(length(x2)/length(x1))
-[x1 y1 z1] = rois_by_dist('PZ44', '2 3 4 5 6 7 8 9', th_base_dir, '1');
-[x2 y2 z2] = rois_by_dist('PZ44', '2 3 4 5 6 7 8 9', cfos_base_dir, '4');
+% cp_yellow('PZ44')
+[x1 y1 z1] = rois_by_dist('PZ44', '4 5 6 7 8 9', th_base_dir, '1');
+[x2 y2 z2] = rois_by_dist('PZ44', '4 5 6 7 8 9', cfos_base_dir, '4');
 disp(length(x2)/length(x1))
-[x1 y1 z1] = rois_by_dist('PZ45', '5 6 7 8 9 10 11 12', th_base_dir, '1');
-[x2 y2 z2] = rois_by_dist('PZ45', '5 6 7 8 9 10 11 12', cfos_base_dir, '4');
+% cp_yellow('PZ45')
+[x1 y1 z1] = rois_by_dist('PZ45', '7 8 9 10 11 12', th_base_dir, '1');
+[x2 y2 z2] = rois_by_dist('PZ45', '7 8 9 10 11 12', cfos_base_dir, '4');
 disp(length(x2)/length(x1))
-[x1 y1 z1] = rois_by_dist('PZ39', '3 4 5 6 7 8 9 10', th_base_dir, '1');
-[x2 y2 z2] = rois_by_dist('PZ39', '3 4 5 6 7 8 9 10', cfos_base_dir, '4');
+% cp_yellow('PZ39')
+[x1 y1 z1] = rois_by_dist('PZ39', '5 6 7 8 9 10', th_base_dir, '1');
+[x2 y2 z2] = rois_by_dist('PZ39', '5 6 7 8 9 10', cfos_base_dir, '4');
 disp(length(x2)/length(x1))
-[x1 y1 z1] = rois_by_dist('PZ46', '5 6 7 8 9 10 11 12', th_base_dir, '1');
-[x2 y2 z2] = rois_by_dist('PZ46', '5 6 7 8 9 10 11 12', cfos_base_dir, '4');
+% cp_yellow('PZ46')
+[x1 y1 z1] = rois_by_dist('PZ46', '7 8 9 10 11 12', th_base_dir, '1');
+[x2 y2 z2] = rois_by_dist('PZ46', '7 8 9 10 11 12', cfos_base_dir, '4');
 disp(length(x2)/length(x1))
-[x1 y1 z1] = rois_by_dist('PZ47', '5 6 7 8 9 10 11 12', th_base_dir, '1');
-[x2 y2 z2] = rois_by_dist('PZ47', '5 6 7 8 9 10 11 12', cfos_base_dir, '4');
+% cp_yellow('PZ47')
+[x1 y1 z1] = rois_by_dist('PZ47', '7 8 9 10 11 12', th_base_dir, '1');
+[x2 y2 z2] = rois_by_dist('PZ47', '7 8 9 10 11 12', cfos_base_dir, '4');
 disp(length(x2)/length(x1))
-[x1 y1 z1] = rois_by_dist('PZ48', '3 4 5 6 7 8 9 10', th_base_dir, '1');
-[x2 y2 z2] = rois_by_dist('PZ48', '3 4 5 6 7 8 9 10', cfos_base_dir, '4');
+% cp_yellow('PZ48')
+[x1 y1 z1] = rois_by_dist('PZ48', '5 6 7 8 9 10', th_base_dir, '1');
+[x2 y2 z2] = rois_by_dist('PZ48', '5 6 7 8 9 10', cfos_base_dir, '4');
 disp(length(x2)/length(x1))
 
 %% TH dists
@@ -142,3 +145,13 @@ disp(length(x2)/length(x1))
 % figure
 % histogram(ally, 3)
 
+
+
+%%
+cfos_try_ln('PZ39')
+cfos_try_ln('PZ43')
+cfos_try_ln('PZ44')
+cfos_try_ln('PZ45')
+cfos_try_ln('PZ46')
+cfos_try_ln('PZ47')
+cfos_try_ln('PZ48')

@@ -1,9 +1,9 @@
 %% Params
-mouse = 'PZ43';
-img_num_input = '3 4 5 6 7 8 9 10';
+mouse = 'PZ48';
+img_nums_input = '3 4 5 6 7 8 9 10';
 rel_img_nums = str2num(img_nums_input);
 
-base_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_TH23\';
+base_dir = 'E:\histology\paula\cellpose_data_copied\220823paula_TH\';
 cp_diameter = 23;
 img_folder = [mouse '\'];
 ln_folder = [mouse '_ln\'];
